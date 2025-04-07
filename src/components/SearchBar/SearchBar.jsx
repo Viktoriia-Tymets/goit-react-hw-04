@@ -1,30 +1,24 @@
 import toast from "react-hot-toast";
-import React, { useState } from "react";
 
-export default function SearchBar({ onSubmit }) {
-  const [query, setQuery] = useState("");
-
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-  };
-
+export default function SearchBar({ onSearch }) {
   const handleSubmit = (e) => {
     e.preventDefault();
+    const query = e.target.elements.input.value.trim();
 
-    if (!query.trim()) {
-      toast.error("Будь ласка, введіть текст для пошуку зображень");
+    if (query === "") {
+      toast("Будь ласка, введіть текст для пошуку зображень");
       return;
     }
-    onSubmit(query);
-    setQuery("");
+    onSearch(query);
+    e.target.reset();
   };
+
   return (
     <header>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          value={query}
-          onChange={handleChange}
+          name="input"
           autocomplete="off"
           autofocus
           placeholder="Search images and photos"
