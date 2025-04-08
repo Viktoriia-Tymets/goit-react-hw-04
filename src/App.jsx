@@ -9,6 +9,7 @@ import "./App.css";
 export default function App() {
   const [images, setImages] = useState([]);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
   const [currentImg, setCurrentImg] = useState(null);
   const [error, setError] = useState(false);
 
@@ -25,6 +26,9 @@ export default function App() {
     setCurrentImg(image);
   };
 
+  useEffect(() => {
+    setError(false);
+    setLoading(true);
 
     if (query === "") {
       setLoading(false);
