@@ -12,10 +12,12 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [currentImg, setCurrentImg] = useState(null);
   const [error, setError] = useState(false);
+  const [page, setPage] = useState(1);
 
   const handleSearch = (value) => {
     setImages([]);
     setQuery(value);
+    setPage(1);
   };
 
   const handleLoadMoreButton = () => {
@@ -27,27 +29,24 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (query === "") return;
+
     setError(false);
     setLoading(true);
-
-    if (query === "") {
-      setLoading(false);
-      return;
-    }
 
     const getImages = async () => {
       try {
         const data = await fetchFotos(query, page);
         setImages((prev) => [...prev, ...data.results]);
+        setLoading(false);
       } catch (error) {
         console.log(" error:", error);
         setError(true);
+        setLoading(false);
       }
     };
 
     getImages();
-
-    setLoading(false);
   }, [query, page]);
 
   return (
@@ -60,10 +59,13 @@ export default function App() {
           handleOpenModal={handleModalWindow}
         />
       )}
-      <Loader />
+      {loading && <Loader />}
       {error && <ErrorMessage />}
       {currentImg && (
-        <ImageModal image={currentImg} handleCloseModal={handleModalWindow} />
+        <ImageModal
+          image={currentImg}
+          handleCloseModal={() => setCurrentImg(null)}
+        />
       )}
     </>
   );

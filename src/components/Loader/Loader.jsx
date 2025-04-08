@@ -1,6 +1,6 @@
 import MoonLoader from "react-spinners/MoonLoader";
 
-export default function Loader() {
+export default function Loader(loading) {
   return (
     <MoonLoader
       color={blue}
@@ -12,6 +12,6 @@ export default function Loader() {
       size={60}
       aria-label="Loading Spinner"
       data-testid="loader"
-    ></MoonLoader>
+    />
   );
 }

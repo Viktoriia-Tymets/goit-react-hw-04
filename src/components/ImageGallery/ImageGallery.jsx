@@ -9,18 +9,14 @@ export default function ImageGallery({
 }) {
   return (
     <>
-      <ul className={styles.list}>
+      <ul>
         {images.map((el) => (
-          <li
-            key={el.id}
-            className={styles.item}
-            onClick={() => handleOpenModalWindow(el)}
-          >
+          <li key={el.id} onClick={() => handleOpenModalWindow(el)}>
             <ImageCard src={el.urls.small} />
           </li>
         ))}
       </ul>
-      <LoadMoreBtn heandleClick={handleLoadMore} />
+      <LoadMoreBtn handleClick={handleLoadMoreButton} />
     </>
   );
 }

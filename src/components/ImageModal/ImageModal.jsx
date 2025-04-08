@@ -19,13 +19,13 @@ const modalStyles = {
 };
 
 export default function ImageModal({ image, onCloseModal }) {
-  const closeModal = (e) => {
-    console.log(e);
+  const closeModal = () => {
     onCloseModal(null);
   };
+
   return (
-    <Modal isOpen={image} onRequestClose={closeModal} style={modalStyles}>
-      <img className={css.images} />
+    <Modal isOpen={!!image} onRequestClose={closeModal} style={modalStyles}>
+      {image && <img src={image} alt="modal" className={css.images} />}
     </Modal>
   );
 }
