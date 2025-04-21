@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchBar from "./components/SearchBar/SearchBar";
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import ImageModal from "./components/ImageModal/ImageModal";
 import Loader from "./components/Loader/Loader";
 import "./App.css";
+
+const fetchFotos = async (query, page) => {
+  const accessKey = "g6x5jfFmrf3J9lUeV9Bn7WlzbP0DBCpbG4wUIF0BCQ4";
+  const perPage = 16;
+
+  const url = `https://api.unsplash.com/search/photos?page=${page}&per_page=${perPage}&query=${query}&client_id=${accessKey}`;
+
+  try {
+    const responce = await fetch(url);
+    if (!responce.ok) {
+      throw new Error("Please try again...");
+    }
+
+    const data = await responce.json();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -59,7 +78,7 @@ export default function App() {
           handleOpenModal={handleModalWindow}
         />
       )}
-      {loading && <Loader />}
+      <Loader loading={loading} />
       {error && <ErrorMessage />}
       {currentImg && (
         <ImageModal

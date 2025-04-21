@@ -1,9 +1,9 @@
 import MoonLoader from "react-spinners/MoonLoader";
 
-export default function Loader(loading) {
+export default function Loader({ loading }) {
   return (
     <MoonLoader
-      color={blue}
+      color="blue"
       cssOverride={{
         margin: "30px auto",
         color: "blue",

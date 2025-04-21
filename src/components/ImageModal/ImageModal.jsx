@@ -5,6 +5,7 @@ import css from "./ImageModal.module.css";
 const modalStyles = {
   overlay: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 1000,
   },
   content: {
     padding: 0,
@@ -15,17 +16,27 @@ const modalStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "none",
+    background: "none",
   },
 };
 
 export default function ImageModal({ image, onCloseModal }) {
   const closeModal = () => {
-    onCloseModal(null);
+    onCloseModal(true);
   };
 
   return (
-    <Modal isOpen={!!image} onRequestClose={closeModal} style={modalStyles}>
-      {image && <img src={image} alt="modal" className={css.images} />}
-    </Modal>
+    <>
+      <Modal isOpen={!!image} onRequestClose={closeModal} style={modalStyles}>
+        {image && (
+          <img
+            src={image.urls.regular}
+            alt={image.alt_description || "modal"}
+            className={css.images}
+          />
+        )}
+      </Modal>
+    </>
   );
 }

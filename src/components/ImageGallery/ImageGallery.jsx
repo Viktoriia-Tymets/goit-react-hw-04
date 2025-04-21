@@ -1,22 +1,23 @@
 import React from "react";
 import ImageCard from "../ImageCard/ImageCard";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import css from "./ImageGallery.module.css";
 
 export default function ImageGallery({
   images,
-  handleLoadMoreButton,
-  handleOpenModalWindow,
+  handleLoadMore,
+  handleOpenModal,
 }) {
   return (
     <>
-      <ul>
+      <ul className={css.gallery}>
         {images.map((el) => (
-          <li key={el.id} onClick={() => handleOpenModalWindow(el)}>
-            <ImageCard src={el.urls.small} />
+          <li key={el.id} onClick={() => handleOpenModal(el)}>
+            <ImageCard src={el.urls.small} alt={el.alt_description} />
           </li>
         ))}
       </ul>
-      <LoadMoreBtn handleClick={handleLoadMoreButton} />
+      <LoadMoreBtn handleClick={handleLoadMore} />
     </>
   );
 }
